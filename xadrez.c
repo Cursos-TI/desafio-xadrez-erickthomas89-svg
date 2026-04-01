@@ -3,15 +3,18 @@
 // Desafio de Xadrez - MateCheck
 // Este código inicial serve como base para o desenvolvimento do sistema de movimentação das peças de xadrez.
 // O objetivo é utilizar estruturas de repetição e funções para determinar os limites de movimentação dentro do jogo.
-//Por: Erick Moraes - 26/03/2026
+// Inclusão da peça cavalo
+//Por: Erick Moraes - 01/02/2026
+
 
 int main() {
     // Variáveis para contar os movimentos de cada peça
     int torre = 5; // A torre pode se mover até 5 vezes
     int bispo = 1; // O bispo pode se mover até 5 vezes, mas começamos com 1 para demonstrar o uso do while
     int rainha = 0; // A rainha pode se mover até 8 vezes, mas começamos com 0 para demonstrar o uso do do-while
+    int cavalo = 1; // o cavalo deve se mover em L(2 para baixo e 1 para esquerda, 
+    // usando while e for para limitar os movimentos do cavalo, começando com 1 para demonstrar o uso do while
     
-
     // Saída de boas-vindas e instruções para o usuário
     printf("Escolha a peça que deseja movimentar:\n");
     
@@ -19,7 +22,8 @@ int main() {
     printf("1 - Torre\n");
     printf("2 - Bispo\n");  
     printf("3 - Rainha\n");
-    
+    printf("4 - Cavalo\n");
+
     // Solicita ao usuário que escolha a peça que deseja movimentar
     printf("Digite o número da peça que deseja movimentar: \n"); 
 
@@ -45,6 +49,14 @@ int main() {
             rainha++;             // Incremento da rainha, equivalente a rainha = rainha + 1
         } while (rainha < 8);     // Estrutura do-while para movimentar a rainha, verificando a condição no final do bloco
     } 
+        else if (escolha == 4){          // Se a escolha for 4, movimenta o cavalo
+            while(cavalo--){    
+                for (int i = 0; i < 2; i++){ // Estrutura for para movimentar o cavalo, limitando os movimentos a 2 para baixo
+                    printf("Baixo\n");       // Saída indicando que o cavalo se move para baixo 2 vezes
+                }
+                printf("Esquerda\n");        // Saída indicando que o cavalo se move para a esquerda 1 vez, formando o movimento em L do cavalo
+            }
+        }
     else {
         printf("Opção inválida!\n"); // Saída indicando que a opção escolhida é inválida, caso o usuário digite um número diferente de 1, 2 ou 3
     }
