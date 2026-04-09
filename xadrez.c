@@ -4,61 +4,119 @@
 // Este código inicial serve como base para o desenvolvimento do sistema de movimentação das peças de xadrez.
 // O objetivo é utilizar estruturas de repetição e funções para determinar os limites de movimentação dentro do jogo.
 // Inclusão da peça cavalo
-//Por: Erick Moraes - 01/02/2026
+// inclusão da recursividade para torre, bispo e rainha
+// Por: Erick Moraes - 01/02/2026
 
+// ================= FUNÇÕES RECURSIVAS =================
+
+// -------- TORRE (recursiva) --------
+// Move para a direita N vezes
+void moverTorre(int casas) { // função recursiva para movimentar a torre
+    if (casas == 0) return; // condição de parada
+
+    printf("Direita\n");   // movimento para a direita
+    moverTorre(casas - 1); // chamada recursiva
+}
+
+// -------- RAINHA (recursiva) --------
+// Move para a esquerda N vezes
+void moverRainha(int casas) { // função recursiva para movimentar a rainha
+    if (casas == 0) return;   // condição de parada
+
+    printf("Esquerda\n");    // movimento para a esquerda
+    moverRainha(casas - 1);  // chamada recursiva
+}
+
+// -------- BISPO (recursivo + loops aninhados) --------
+// Movimento diagonal: cima + direita
+void moverBispo(int casas) { // função recursiva para movimentar o bispo
+    if (casas == 0) return;  // condição de parada
+
+    // loop externo (vertical)
+    for (int v = 0; v < 1; v++) { // controle do movimento vertical
+        printf("Cima, "); // movimento vertical 
+
+        // loop interno (horizontal)
+        for (int h = 0; h < 1; h++) { // controle do movimento horizontal
+            printf("Direita\n");      // movimento horizontal
+        }
+    }
+
+    moverBispo(casas - 1); // recursão
+}
+
+// ================= FUNÇÃO PRINCIPAL =================
 
 int main() {
-    // Variáveis para contar os movimentos de cada peça
-    int torre = 5; // A torre pode se mover até 5 vezes
-    int bispo = 1; // O bispo pode se mover até 5 vezes, mas começamos com 1 para demonstrar o uso do while
-    int rainha = 0; // A rainha pode se mover até 8 vezes, mas começamos com 0 para demonstrar o uso do do-while
-    int cavalo = 1; // o cavalo deve se mover em L(2 para baixo e 1 para esquerda, 
-    // usando while e for para limitar os movimentos do cavalo, começando com 1 para demonstrar o uso do while
-    
-    // Saída de boas-vindas e instruções para o usuário
-    printf("Escolha a peça que deseja movimentar:\n");
-    
-    // Exibe as opções de peças para o usuário escolher
+
+    // Quantidade de movimentos
+    int casasTorre = 5;
+    int casasBispo = 5;
+    int casasRainha = 8;
+
+    printf("Escolha a peça que deseja movimentar:\n"); // menu de opções para o usuário
     printf("1 - Torre\n");
-    printf("2 - Bispo\n");  
+    printf("2 - Bispo\n");
     printf("3 - Rainha\n");
     printf("4 - Cavalo\n");
 
-    // Solicita ao usuário que escolha a peça que deseja movimentar
-    printf("Digite o número da peça que deseja movimentar: \n"); 
+    int escolha;
+    scanf("%d", &escolha); // leitura da escolha do usuário
 
-    int escolha;           // Variável para armazenar a escolha do usuário
-    scanf("%d", &escolha); // Entrada do número da peça que o usuário deseja movimentar
+    printf("\nMovimentando...\n\n"); // mensagem de início do movimento
 
-    printf("Movimentando a peça escolhida...\n");
+    // ================= ESCOLHAS =================
 
-    if (escolha == 1) {                   // Se a escolha for 1, movimenta a torre
-        for (int i = 0; i < torre; i++) { // Estrutura for para movimentar a torre
-            printf("Direita!\n");         // Saída indicando que a torre se move para a direita
-        }
-    } 
-    else if (escolha == 2) {            // Se a escolha for 2, movimenta o bispo
-        while (bispo <= 5) {            // Estrutura while para movimentar o bispo, verificando a condição no início do bloco
-            printf("Cima, Direita!\n"); // Saída indicando que o bispo se move para cima e para a direita
-            bispo++;                    // Incremento do bispo, equivalente a bispo = bispo + 1
-        }
-    } 
-    else if (escolha == 3) {      // Se a escolha for 3, movimenta a rainha
-        do {
-            printf("Esquerda\n"); // Saída indicando que a rainha se move para a esquerda
-            rainha++;             // Incremento da rainha, equivalente a rainha = rainha + 1
-        } while (rainha < 8);     // Estrutura do-while para movimentar a rainha, verificando a condição no final do bloco
-    } 
-        else if (escolha == 4){          // Se a escolha for 4, movimenta o cavalo
-            while(cavalo--){    
-                for (int i = 0; i < 2; i++){ // Estrutura for para movimentar o cavalo, limitando os movimentos a 2 para baixo
-                    printf("Baixo\n");       // Saída indicando que o cavalo se move para baixo 2 vezes
+    if (escolha == 1) {            
+        printf("=== TORRE ===\n"); // título para a torre
+        moverTorre(casasTorre);    // chamada da função recursiva para a torre
+    }
+
+    else if (escolha == 2) {       // título para o bispo
+        printf("=== BISPO ===\n"); // chamada da função recursiva para o bispo
+        moverBispo(casasBispo); // chamada da função recursiva para o bispo
+    }
+
+    else if (escolha == 3) {        // título para a rainha
+        printf("=== RAINHA ===\n"); // chamada da função recursiva para a rainha
+        moverRainha(casasRainha);   
+    }
+
+    else if (escolha == 4) {        // título para o cavalo
+        printf("=== CAVALO ===\n"); // movimento do cavalo utilizando loops aninhados
+
+        // Loop externo controla repetições do movimento
+        for (int movimento = 0; movimento < 1; movimento++) {
+
+            // Loop interno controla as casas
+            for (int passo = 0; passo < 3; passo++) {
+
+                // Duas casas para cima
+                if (passo < 2) {
+                    printf("Cima\n");
+                } 
+                // Uma casa para direita
+                else {
+                    printf("Direita\n");
                 }
-                printf("Esquerda\n");        // Saída indicando que o cavalo se move para a esquerda 1 vez, formando o movimento em L do cavalo
+
+                // Exemplo de controle com continue
+                if (passo == 0) {
+                    continue; // pula para próxima iteração
+                }
+
+                // Exemplo de break (apenas demonstração controlada)
+                if (movimento == 1 && passo == 2) {
+                    break;
+                }
             }
+
+            printf("\n"); // separação visual
         }
-    else {
-        printf("Opção inválida!\n"); // Saída indicando que a opção escolhida é inválida, caso o usuário digite um número diferente de 1, 2 ou 3
+    }
+
+    else {                           
+        printf("Opção inválida!\n"); // mensagem de erro para opção inválida
     }
 
     return 0;
